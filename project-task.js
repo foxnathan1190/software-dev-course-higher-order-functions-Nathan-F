@@ -16,7 +16,7 @@ They will:
 // 📦 Starting Dataset: Product List
 // ============================================
 
-const products = [
+const electronicProducts = [
   { name: "Laptop", price: 1000, inStock: true },
   { name: "Phone", price: 500, inStock: false },
   { name: "Tablet", price: 800, inStock: true },
@@ -44,6 +44,13 @@ Step-by-Step:
 3. Return the filtered result.
 */
 
+function filterProducts(products, callback) {
+  return products.filter(callback);
+}
+
+const inStockProducts = filterProducts(electronicProducts, product => product.inStock);
+
+console.log(inStockProducts);
 
 /*
 🔹 Task 2: Transform Product Names
@@ -56,6 +63,9 @@ Step-by-Step:
 3. Store the result in a new variable.
 */
 
+const productNameUppercase = electronicProducts.map((product) => product.name.toUpperCase());
+
+console.log(productNameUppercase);
 
 /*
 🔹 Task 3: Generate Discounted Prices
@@ -70,6 +80,17 @@ Step-by-Step:
 3. Use this returned function inside a `map()` call to apply discounts to all products.
 */
 
+function applyDiscount(discount) {
+  return function(product) {
+    return product.price * (1 - discount);
+  }
+}
+
+const discount10 = applyDiscount(.1);
+
+const dicountedProducts = electronicProducts.map(product => ({...product, price: discount10(product)}));
+
+console.log(dicountedProducts);
 
 /*
 🔹 Task 4: Calculate Total Inventory Value
@@ -82,6 +103,11 @@ Step-by-Step:
 3. Store the total in a new variable.
 */
 
+const totalValue = electronicProducts
+  .filter(products => products.inStock)
+  .reduce((total, products) => total + products.price, 0);
+
+console.log(totalValue);
 
 // ============================================
 // 🧪 Console Test Your Work
